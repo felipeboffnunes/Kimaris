@@ -7,7 +7,7 @@ Kimaris is a tool that aids in the selection, visualization, and analysis of pri
 Search anything on google scholar, copy the url link and paste it on Kimaris. It will create the article instances on the system, and links between cited papers.
 
 <h3>3D Network Graph</h3>
-Kimaris provides a 3D network graph of all the articles found. By clicking each node it is possible to see the papers that cited it. It is possible to enter inside a node element to see more information and analyse it.
+Kimaris provides a 3D network graph of all the articles found. By clicking each node it is possible to see the papers that cited it. It is possible to enter inside a node element to see more information and analyse it. If a node has a red circle, it means it is citing the one connected to it. Central nodes will be citing only nodes without a red circle.
 
 3D Network Graph| Source 
 --|--
