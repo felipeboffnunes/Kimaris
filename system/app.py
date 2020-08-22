@@ -35,7 +35,6 @@ external_stylesheets = [dbc.themes.LUX]
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 app.config.suppress_callback_exceptions = True
 
-
 # Table
 # ID: table
 TABLE = get_table()
@@ -118,7 +117,6 @@ article_page = html.Div([
                     ARTICLE_MENU
 ], id="article-div", className="row"),
         
-
 layout = html.Div([
     html.Div([
     MENU
@@ -126,11 +124,6 @@ layout = html.Div([
     html.Div(id="page-content"),
     html.Div(id="SELECTED_ARTICLE", style={"display": "none"})
 ], id="root", style={"height": "100vh"})
-
-
-
-
-
 
 app.layout = html.Div([dcc.Location(id="url"), layout], id="layout")
 
@@ -217,7 +210,6 @@ def select_article(click, node_click, node, value, article):
     SELECTED_ARTICLE = name
     return name
 
-  
 @app.callback(
     [Output("article-info", "children"),
      Output("article-graph", "children")],
@@ -267,8 +259,6 @@ def get_pdf(contents, filename, date):
             
             content = summarize(model, content)
            
-            
-            
             return frame, content, common_words, None
     except Exception as e:
         print(e)

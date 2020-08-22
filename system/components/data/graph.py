@@ -1,5 +1,5 @@
 # Python Standard Libraries
-
+import math
 # External Libraries
 import igraph as ig
 import chart_studio.plotly as py
@@ -17,31 +17,32 @@ def get_figure(nodes=None, links=None, sizes_=None, name="", standard=False, sou
     
     # Re-scale sizes
     # Big values (x > 40) make the graph awful
+  
     MAX = max(sizes_)
     sizes = []
     if MAX > 3000:
-        DIVIDE = 100
-    elif MAX > 1500:
-        DIVIDE = 50
-    elif MAX > 750:
         DIVIDE = 40
+    elif MAX > 1500:
+        DIVIDE = 30
+    elif MAX > 750:
+        DIVIDE = 25
     elif MAX > 300:
-        DIVIDE = 20
+        DIVIDE = 17
     elif MAX > 100:
-        DIVIDE = 10
+        DIVIDE = 12
     elif MAX > 30:
         DIVIDE = 5
     else:
         DIVIDE = 1
     for size in sizes_:
         size = (size+1)//(MAX//DIVIDE)
-        sizes.append(size+6)
+        sizes.append(size+10)
         
     N=len(nodes)
     L=len(links)
     Edges=[(links[k]['source'], links[k]['target']) for k in range(L)]
 
-    G=ig.Graph(Edges, directed=False)
+    G=ig.Graph(Edges, directed=True)
 
     labels=[]
     group=[]
@@ -54,14 +55,27 @@ def get_figure(nodes=None, links=None, sizes_=None, name="", standard=False, sou
     Xn=[layt[k][0] for k in range(N)]# x-coordinates of nodes
     Yn=[layt[k][1] for k in range(N)]# y-coordinates
     Zn=[layt[k][2] for k in range(N)]# z-coordinates
+    #dxe=[layt[k][0] for k in range(N)]
+    #dye=[layt[k][1] for k in range(N)]
+    #dze=[layt[k][2] for k in range(N)]
+    
     Xe=[]
     Ye=[]
     Ze=[]
+    dxe=[]
+    dye=[]
+    dze=[]
+    dxxe=[]
+    dyye=[]
+    dzze=[]
+    import numpy as np
     for e in Edges:
-        Xe+=[layt[e[0]][0],layt[e[1]][0], None]# x-coordinates of edge ends
+        dxe.append(layt[e[0]][0])
+        dye.append(layt[e[0]][1])
+        dze.append(layt[e[0]][2])
+        Xe+=[layt[e[0]][0],layt[e[1]][0], None]
         Ye+=[layt[e[0]][1],layt[e[1]][1], None]
         Ze+=[layt[e[0]][2],layt[e[1]][2], None]
-    
     
     
     if len(labels) == 2:
@@ -71,6 +85,25 @@ def get_figure(nodes=None, links=None, sizes_=None, name="", standard=False, sou
         Xe=[0,1, None]
         Ye=[0,2, None]
         Ze=[0,1, None]
+        dxe=[0]
+        dye=[0]
+        dze=[0]
+
+
+
+    trace3=go.Scatter3d(x=dxe,
+                y=dye,
+                z=dze,
+                mode='markers',
+                name='actors',
+                opacity=0.7,
+                marker=dict(symbol='circle',
+                                size=2 if not standard else 0.2,
+                                color="red"
+                                ),
+                text=[f"{'<br>'.join([label[index : index + 30] for index in range(0, len(label), 30)])}<br>Cited by: {size}" for label, size in zip(labels, sizes_)],
+                hoverinfo='text'
+                )
 
     trace1=go.Scatter3d(x=Xe,
                 y=Ye,
@@ -85,13 +118,14 @@ def get_figure(nodes=None, links=None, sizes_=None, name="", standard=False, sou
                 z=Zn,
                 mode='markers',
                 name='actors',
+                opacity=1,
                 marker=dict(symbol='circle',
-                                size=sizes,
+                                size=[x for x in sizes],
                                 color=group,
-                                colorscale='Viridis',
+                                colorscale='haline',
                                 line=dict(color='rgb(50,50,50)', width=0.5)
                                 ),
-                text=labels,
+                text=[f"{'<br>'.join([label[index : index + 30] for index in range(0, len(label), 30)])}<br>Cited by: {size}" for label, size in zip(labels, sizes_)],
                 hoverinfo='text'
                 )
 
@@ -127,14 +161,23 @@ def get_figure(nodes=None, links=None, sizes_=None, name="", standard=False, sou
                 size=14
                 )
                 )
-            ],    )
+            ],    
+        hoverlabel = dict(
+            bgcolor = 'white'
+        )
+)
 
 
     
 
-    data=[trace1, trace2]
+    data=[trace1, trace2, trace3]
     fig=go.Figure(data=data, layout=layout)
     fig.update_layout(
+        title={
+        'y':0.9,
+        'x':0.5,
+        'xanchor': 'center',
+        'yanchor': 'top'},
     autosize=True)
     
     return fig

@@ -1,5 +1,6 @@
 # Python Standard Libraries
 import sqlite3
+import re
 
 def get_standard_graph():
     try:
@@ -25,7 +26,7 @@ def get_standard_graph():
     for node in nodes_:
         data = {"name": node[1], "group": node[2]}
         nodes.append(data)
-        sizes.append(node[2])
+        sizes.append(node[3])
         
     links = []
     for link in links_:
@@ -35,6 +36,10 @@ def get_standard_graph():
     return nodes, links, sizes
 
 def get_selected_graph(name):
+    # Name comes parsed from visualization
+    name = re.sub("<br>", "", name)
+    name = re.sub("(Cited by: \d+)", "", name)
+    
     nodes = []
     links = []
     sizes = []
