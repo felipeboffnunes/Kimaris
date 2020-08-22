@@ -12,7 +12,7 @@ Kimaris provides a 3D network graph of all the articles found. By clicking each 
 3D Network Graph| Source 
 --|--
 ![](https://github.com/felipeboffnunes/Kimaris/blob/master/images/graph3d.gif?raw=true) | ```get_figure(nodes, links, sizes_, name, standard, source)``` 
-By using the igraph library, the system determines the coordinates for each node and link. Subsequently, it creates one ```go.Scatter3d``` trace for the nodes and one for the lines. The traces are added to a ```go.Figure``` and the graph is plotted in a dcc.Graph from Dash. | [Code](https://github.com/felipeboffnunes/Kimaris/blob/master/system/components/data/graph.py)
+By using the igraph library, the system determines the coordinates for each node and link. Subsequently, it creates one ```go.Scatter3d``` trace for the nodes and one for the lines. The traces are added to a ```go.Figure``` and the graph is plotted in a ```dcc.Graph``` from Dash. | [Code](https://github.com/felipeboffnunes/Kimaris/blob/master/system/components/data/graph.py)
 
 ## Contributing ##
 
