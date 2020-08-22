@@ -7,12 +7,12 @@ Kimaris is a tool that aids in the selection, visualization, and analysis of pri
 Search anything on google scholar, copy the url link and paste it on Kimaris. It will create the article instances on the system, and links between cited papers.
 
 <h3>3D Network Graph</h3>
-Kimaris uses dcc.Graph from Dash to provide a 3D network graph of all the articles found. By clicking each node it is possible to see the papers that cited it. 
+Kimaris providea a 3D network graph of all the articles found. By clicking each node it is possible to see the papers that cited it. 
 
-3D Network Graph| Description 
+3D Network Graph| Source 
 --|--
 ![](https://github.com/felipeboffnunes/Kimaris/blob/master/images/graph3d.gif?raw=true) | ```get_figure(nodes, links, sizes_, name, standard, source)``` 
-By using the igraph library, the system determines the coordinates for each node and link. Subsequently, it creates one ```go.Scatter3d``` trace for the nodes and one for the lines. The traces are added to a ```go.Figure``` and the graph is plotted. | [Code](https://github.com/felipeboffnunes/Kimaris/blob/master/system/components/data/graph.py)
+By using the igraph library, the system determines the coordinates for each node and link. Subsequently, it creates one ```go.Scatter3d``` trace for the nodes and one for the lines. The traces are added to a ```go.Figure``` and the graph is plotted in a dcc.Graph from Dash. | [Code](https://github.com/felipeboffnunes/Kimaris/blob/master/system/components/data/graph.py)
 
 ## Contributing ##
 
