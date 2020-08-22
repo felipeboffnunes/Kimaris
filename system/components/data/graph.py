@@ -50,7 +50,10 @@ def get_figure(nodes=None, links=None, sizes_=None, name="", standard=False, sou
         labels.append(node['name'])
         group.append(node['group'])
         
-    layt=G.layout_auto(dim=3)
+    from itertools import cycle, islice
+    
+    layt=G.layout_fruchterman_reingold(grid=True,dim=3)
+
 
     Xn=[layt[k][0] for k in range(N)]# x-coordinates of nodes
     Yn=[layt[k][1] for k in range(N)]# y-coordinates

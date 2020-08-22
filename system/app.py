@@ -10,6 +10,8 @@ from dash.dependencies import Input, Output, State
 import pandas as pd
 from tika import parser
 
+# Pages
+from components.pages.pages import pages
 
 # Data
 from components.data.table import get_table
@@ -20,9 +22,7 @@ from components.data.nlp import get_common_words_graph, get_topics
 from components.database.graph import get_selected_graph, get_name_by_id
 from components.database.article import get_article
 
-# Fragments
-from components.fragments.bottom_menu import BOTTOM_MENU
-from components.fragments.article_menu import ARTICLE_MENU
+
 from components.fragments.menu import MENU
 
 # Neural Network
@@ -44,85 +44,13 @@ TABLE = get_table()
 FIGURE = get_figure(standard=True)
 GRAPH = get_graph(FIGURE)
 
-# Menu
-# ID: menu
-BOTTOM_MENU = BOTTOM_MENU
 
 # App Layout
-home = html.Div([
-            html.Div([
-                    html.Div([
-                        GRAPH
-                    ], style={"width": "38%", "float": "left"}, className="columns"),
-                    
-                    html.Div([
-                        TABLE
-                    ], style={"width": "60%", "float": "right"}, className="columns"),
-                    
-            ], className="row"),
-                
-            html.Div([
-                BOTTOM_MENU
-            ]),
-        ])
-
-article_page = html.Div([
-                    html.Div([
-                        html.Div(id="article-info"),
-                        dcc.Upload(
-                            id='upload-article-pdf',
-                            children=html.P("Drag pdf article or click here"),
-                            style={
-                                'width': '100%',
-                                'height': '60px',
-                                'lineHeight': '60px',
-                                'borderWidth': '1px',
-                                'borderStyle': 'dashed',
-                                'borderRadius': '5px',
-                                'textAlign': 'center',
-                                'margin': '10px'
-                            },
-                        ),    
-                    ],id="article-header", style={"padding": "2em", "width": "30%"}),
-                    html.Div([
-                        dcc.Tabs([
-                            dcc.Tab(
-                                html.Div(id="article-graph", style={"width": "100%", "padding-top": "2em"}), label="Graph"
-                            ),
-                            dcc.Tab(
-                                html.Div([
-                                        html.Div(id="iframe-article-div"),
-                                ],id="article-pdf"), label="PDF"
-                            ),
-                            dcc.Tab(
-                                dcc.Tabs([
-                                    dcc.Tab(
-                                        html.Div([
-                                            html.P(id="text-article", ),
-                                        ],id="article-metadata", style={'overflow-y': 'scroll', "height": "75vh"}
-                                        ), label="Summarized text"
-                                    ),
-                                    dcc.Tab(
-                                        html.Div(id="common-words-div"), label="Common Words"
-                                    ),
-                                    dcc.Tab(
-                                        html.Div(id="topic-modelling-div"), label="Topic Modelling"
-                                    ),
-                                ]), label="Metadata"
-                            ),
-                           
-                        ])
-                    ], id="article", style={"width": "70%"}),
-                    
-                    ARTICLE_MENU
-], id="article-div", className="row"),
-        
 layout = html.Div([
     html.Div([
     MENU
     ],id="menu-div", style={"padding-bottom": "6vh"}),
-    html.Div(id="page-content"),
-    html.Div(id="SELECTED_ARTICLE", style={"display": "none"})
+    html.Div(id="page-content")
 ], id="root", style={"height": "100vh"})
 
 app.layout = html.Div([dcc.Location(id="url"), layout], id="layout")
@@ -130,9 +58,11 @@ app.layout = html.Div([dcc.Location(id="url"), layout], id="layout")
 @app.callback(Output("page-content", "children"), [Input("url", "pathname")])
 def render_page_content(pathname):
     if pathname in ["/", "/page-1"]:
-        return home
+        return pages["review"]
     elif pathname in ["/article"]:
-        return article_page
+        return pages["article"]
+    elif pathname in ["/reviews"]:
+        return pages["reviews"]
     # If the user tries to reach a different page, return a 404 message
     return dbc.Jumbotron(
         [

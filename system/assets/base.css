@@ -65,7 +65,7 @@ html,body {
 
 /* Select page above menu */
 .previous-next-container {
-    margin-top: -6vh;
+    margin-top: -4.5vh;
     margin-left: 45vh;
     position: absolute;
     z-index: 10;

@@ -13,8 +13,11 @@ menu_items = dbc.Row(
             width="auto"
         ),
         dbc.Col(
-            dbc.Button("Reviews", id="open-graph-button", n_clicks=0),
-            id="open-graph-col", 
+            dbc.NavLink(dbc.Button("Reviews", id="reviews-button", n_clicks=0),
+            href="/reviews",
+            id="reviews-link"
+            ),
+            id="reviews-col", 
             width="auto"
         )
     ],
