@@ -7,7 +7,9 @@ Kimaris is a tool that aids in the selection, visualization, and analysis of pri
 Search anything on google scholar, copy the url link and paste it on Kimaris. It will create the article instances on the system, and links between cited papers.
 
 <h3>3D Network Graph</h3>
-![3D Graph](https://github.com/felipeboffnunes/Kimaris/blob/master/images/graph3d.gif)
+
+![](https://github.com/felipeboffnunes/Kimaris/blob/master/images/graph3d.gif?raw=true)
+
 Kimaris uses dcc.Graph from Dash to provide a 3D network graph of all the articles found. By clicking each node it is possible to see the papers that cited it.
 
 ## Contributing ##
