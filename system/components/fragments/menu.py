@@ -2,41 +2,46 @@
 
 # External Libraries
 import dash_bootstrap_components as dbc
+import dash_html_components as html
+
 
 menu_items = dbc.Row(
     [
         dbc.Col(
-            dbc.Button("Reset graph", id="reset-graph-button", n_clicks=0),
+            dbc.Button("Review", id="reset-graph-button", n_clicks=0),
             id="reset-graph-col", 
-            width={"size": "3"}),
+            width="auto"
+        ),
         dbc.Col(
-            dbc.Button("Open graph", id="open-graph-button", n_clicks=0),
+            dbc.Button("Reviews", id="open-graph-button", n_clicks=0),
             id="open-graph-col", 
-            width={"size": "3"}),
-        
-        dbc.Col(
-            dbc.NavLink(dbc.Button("Select node", id="select-node-button", n_clicks=0),
-            href="/article",
-            id="node-link"
-            ),
-            id="select-node-col", 
-            width={"size": "3"}),
-        dbc.Col(
-            dbc.NavLink(dbc.Button("Select article", id="select-article-button", n_clicks=0),
-            href="/article",
-            id="article-link"
-            ),
-            id="select-article-col", 
-            width={"size": "3"}),
+            width="auto"
+        )
     ],
+    no_gutters=True,
+    className="ml-auto flex-nowrap mt-3",
+    align="center",
 
 )
+
 MENU = dbc.Navbar(
-    [
+    [   
+        html.A(
+            dbc.Row(
+                [   
+                    dbc.Col(html.Img(src="assets/logo2.svg", height="67vh")),
+                    dbc.Col(dbc.NavbarBrand("Kimaris", className="ml-2")),
+                ],
+                align="center",
+                no_gutters=True,
+                ),
+            href="/",
+            id="logo"
+        ),
         menu_items,
         dbc.NavbarToggler(id="navbar-toggler")
     ],
     color="dark",
     dark=True,
-    style={"position": "absolute", "bottom": 0, "left":0, "width": "100%", "height": "8vh"},
+    style={"position": "absolute", "top": 0, "left":0, "width": "100%"},
     id="menu")

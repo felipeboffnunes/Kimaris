@@ -2,13 +2,49 @@ html,body {
     overflow: hidden;
 }
 
+#menu {
+    z-index: 0;
+}
+
+/* Padding for logo */
+#logo {
+    padding-left: 1em;
+}
+
+
+/* Tab container small size and black */
+
+.tab-container {
+    height: 1em !important;
+    padding-bottom: 1.5em !important;
+}
+
+.tab {
+    padding-top: 0 !important;
+}
+
+.tab.tab--selected{
+    border-top: 2px solid #000000 !important;
+}
+
+
 /* button and menu same height */
 .btn-secondary {
-    height: 8vh;
+    height: 6vh;
+}
+
+.row {
+    margin-top: 0 !important;
 }
 
 .navbar {
-    height: 8vh;
+    height: 6vh;
+    padding: 0;
+}
+
+.nav-link {
+    padding:0 !important;
+    margin:0;
 }
 
 
@@ -29,8 +65,8 @@ html,body {
 
 /* Select page above menu */
 .previous-next-container {
+    margin-top: -6vh;
     margin-left: 45vh;
-    margin-bottom: 1em;
     position: absolute;
     z-index: 10;
 }

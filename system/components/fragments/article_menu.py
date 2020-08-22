@@ -11,9 +11,11 @@ menu_items = dbc.Row(
             id="return-article-link"
             ),
             id="return-article-col", 
-            width={"size": "3"}),
+            width="auto"),
     ],
-
+    no_gutters=True,
+    className="flex-nowrap mt-3 mt-md-3",
+    align="center",
 )
 ARTICLE_MENU = dbc.Navbar(
     [
@@ -22,5 +24,5 @@ ARTICLE_MENU = dbc.Navbar(
     ],
     color="dark",
     dark=True,
-    style={"position": "absolute", "bottom": 0, "left":0, "width": "100%", "height": "8vh"},
+    style={"position": "absolute", "bottom": 0, "left":0, "width": "100%"},
     id="menu")

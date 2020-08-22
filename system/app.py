@@ -21,8 +21,9 @@ from components.database.graph import get_selected_graph, get_name_by_id
 from components.database.article import get_article
 
 # Fragments
-from components.fragments.menu import MENU
+from components.fragments.bottom_menu import BOTTOM_MENU
 from components.fragments.article_menu import ARTICLE_MENU
+from components.fragments.menu import MENU
 
 # Neural Network
 from components.neural_network.summarization import create_network, summarize
@@ -46,7 +47,7 @@ GRAPH = get_graph(FIGURE)
 
 # Menu
 # ID: menu
-MENU = MENU
+BOTTOM_MENU = BOTTOM_MENU
 
 # App Layout
 home = html.Div([
@@ -62,7 +63,7 @@ home = html.Div([
             ], className="row"),
                 
             html.Div([
-                MENU
+                BOTTOM_MENU
             ]),
         ])
 
@@ -112,14 +113,19 @@ article_page = html.Div([
                             ),
                            
                         ])
-                    ], id="article", style={"width": "65%"}),
+                    ], id="article", style={"width": "70%"}),
+                    
+                    ARTICLE_MENU
 ], id="article-div", className="row"),
         
 
 layout = html.Div([
+    html.Div([
+    MENU
+    ],id="menu-div", style={"padding-bottom": "6vh"}),
     html.Div(id="page-content"),
     html.Div(id="SELECTED_ARTICLE", style={"display": "none"})
-], id="root")
+], id="root", style={"height": "100vh"})
 
 
 
@@ -206,7 +212,8 @@ def select_article(click, node_click, node, value, article):
     if article != None:
         name = value[article["row_id"] - 1]
         name = name["name"]
-        
+    
+    REVIEW_NAME = name
     SELECTED_ARTICLE = name
     return name
 
