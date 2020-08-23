@@ -13,13 +13,16 @@ from tika import parser
 # Pages
 from components.pages.pages import pages
 
+# Manager
+from components.manager.search import do_search
+
 # Data
 from components.data.table import get_table
 from components.data.graph import get_graph, get_figure
 from components.data.nlp import get_common_words_graph, get_topics
 
 # Database
-from components.database.graph import get_selected_graph, get_name_by_id
+from components.database.graph import get_selected_graph, get_name_by_id, populate_database
 from components.database.article import get_article
 
 
@@ -57,7 +60,7 @@ app.layout = html.Div([dcc.Location(id="url"), layout], id="layout")
 
 @app.callback(Output("page-content", "children"), [Input("url", "pathname")])
 def render_page_content(pathname):
-    if pathname in ["/", "/page-1"]:
+    if pathname in ["/", "/review"]:
         return pages["review"]
     elif pathname in ["/article"]:
         return pages["article"]
@@ -214,10 +217,39 @@ def update_output(content, name, date):
             'No pdf sent.'
         ]), None, None, None]
 
+CLICK = 0
+@app.callback([Output("search-callback", "children")],
+              [Input("search-button", "n_clicks")],
+              [State("search-string", "value")])
+def search(click, search_string):
+    global CLICK
+    if click > CLICK:
+        CLICK = click
+        articles = do_search(search_string)
+        populate_database(articles)
+    return [None]
+
+@app.callback([Output("log-search", "children")],
+              [Input("interval-component", "n_intervals")])
+def update_log(interval):
+    data = ""
+    try:
+        with open("scholar.log", "r") as f:
+            data = f.readlines()
+    except:
+        pass
+    
+    return [data]
 
 
-
-
+@app.callback(Output("info-modal", "is_open"),
+              [Input("info-open-button", "n_clicks"),
+               Input("info-close-button", "n_clicks")],
+              [State("info-modal", "is_open")])
+def info_model(open_, close, is_open):
+    if open_ or close:
+        return not is_open
+    return is_open
 
 
 app.run_server(debug=True)

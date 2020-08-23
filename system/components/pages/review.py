@@ -28,7 +28,7 @@ review_page = html.Div([
                     
                     html.Div([
                         TABLE
-                    ], style={"width": "60%", "float": "right"}, className="columns"),
+                    ], style={"width": "60%", "float": "right"}, className="columns", id="table-div"),
                     
             ], className="row"),
                 

@@ -12,10 +12,7 @@ review_menu_items = dbc.Row(
             width="auto"
         ),
         dbc.Col(
-            dbc.NavLink(dbc.Button("Search", id="search-button", n_clicks=0),
-            href="/page-3",
-            id="page-3-link"
-            ),
+            dbc.Button("Search", id="search-button", n_clicks=0),
             id="search-col", 
             width="auto"
         ),

@@ -8,11 +8,6 @@ import dash_html_components as html
 menu_items = dbc.Row(
     [
         dbc.Col(
-            dbc.Button("Review", id="reset-graph-button", n_clicks=0),
-            id="reset-graph-col", 
-            width="auto"
-        ),
-        dbc.Col(
             dbc.NavLink(dbc.Button("Reviews", id="reviews-button", n_clicks=0),
             href="/reviews",
             id="reviews-link"

@@ -39,6 +39,8 @@ def get_figure(nodes=None, links=None, sizes_=None, name="", standard=False, sou
         sizes.append(size+10)
         
     N=len(nodes)
+    print(N)
+    print(nodes)
     L=len(links)
     Edges=[(links[k]['source'], links[k]['target']) for k in range(L)]
 
@@ -50,11 +52,12 @@ def get_figure(nodes=None, links=None, sizes_=None, name="", standard=False, sou
         labels.append(node['name'])
         group.append(node['group'])
         
-    from itertools import cycle, islice
     
-    layt=G.layout_fruchterman_reingold(grid=True,dim=3)
-
-
+    #layt=G.layout_fruchterman_reingold(grid=True,dim=3)
+    layt=G.layout_auto(dim=3)
+    print(layt[0][0])
+    print(layt[0][1])
+    print(layt[0][2])
     Xn=[layt[k][0] for k in range(N)]# x-coordinates of nodes
     Yn=[layt[k][1] for k in range(N)]# y-coordinates
     Zn=[layt[k][2] for k in range(N)]# z-coordinates
@@ -68,9 +71,7 @@ def get_figure(nodes=None, links=None, sizes_=None, name="", standard=False, sou
     dxe=[]
     dye=[]
     dze=[]
-    dxxe=[]
-    dyye=[]
-    dzze=[]
+
     import numpy as np
     for e in Edges:
         dxe.append(layt[e[0]][0])

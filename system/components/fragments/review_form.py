@@ -7,7 +7,7 @@ search_string_input = dbc.FormGroup(
         dbc.Label("Search String", html_for="search-string-row", width=2),
         dbc.Col(
             dbc.Input(
-                type="text", id="search-string-row", placeholder="Enter title"
+                type="text", id="search-string", placeholder="Enter title"
             ),
             width=10,
         ),
@@ -22,6 +22,30 @@ date_input = dbc.FormGroup(
             dcc.DatePickerRange(
                 id="date-row",
                 display_format="Y"
+            ),
+            width=10,
+        ),
+    ],
+    row=True,
+)
+
+n_input = dbc.FormGroup(
+    [
+        dbc.Label("Number of results", html_for="n-row", width=2),
+        dbc.Col(
+            dcc.RangeSlider(
+                min=0,
+                max=10,
+                step=None,
+                marks={
+                    0: '10',
+                    2: '100',
+                    4: '500',
+                    6: '1000',
+                    8: '3000',
+                    10: 'All'
+                },
+                value=[4]
             ),
             width=10,
         ),
@@ -58,4 +82,4 @@ databases_input = dbc.FormGroup(
     row=True,
 )
 
-review_form = dbc.Form([search_string_input, date_input, databases_input], style={"width": "100%"})
+review_form = dbc.Form([search_string_input, date_input, n_input, databases_input], style={"width": "50%"})
