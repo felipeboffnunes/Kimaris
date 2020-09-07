@@ -14,6 +14,13 @@ Kimaris provides a 3D network graph of all the articles found. By clicking each 
 ![](https://github.com/felipeboffnunes/Kimaris/blob/master/images/graph3d.gif?raw=true) | ```get_figure(nodes, links, sizes_, name, standard, source)``` 
 By using the igraph library, the system determines the coordinates for each node and link. Subsequently, it creates one ```go.Scatter3d``` trace for the nodes and one for the lines. The traces are added to a ```go.Figure``` and the graph is plotted in a ```dcc.Graph``` from Dash. | [Code](https://github.com/felipeboffnunes/Kimaris/blob/master/system/components/data/graph.py)
 
+<h4>Authors Graph and Metadata</h4>
+<p>We are developing new visualizations, the first one is the authors graph, where you can see each author linked to all papers it has written. It is still in development, so there are features such as knowing the cited number which are not integrated yet</p>
+<p>The metadata tab shows a bar visualization of the number of citations for all papers, and the year of all papers.</p>
+
+![](https://github.com/felipeboffnunes/Kimaris/blob/master/images/layout.gif?raw=true) 
+
+
 ## Contributing ##
 
 ### Setup the development environment ###
@@ -52,6 +59,7 @@ pip install -r requirements.txt
 5. To run Kimaris:
 
 ```
-python main.py
+cd system
+python app.py
 ```
 
