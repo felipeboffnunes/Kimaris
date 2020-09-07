@@ -5,5 +5,5 @@ from components.pages.reviews import reviews_page
 
 
 pages = {"review": review_page,
-         "article_page": article_page,
+         "article": article_page,
          "reviews": reviews_page}

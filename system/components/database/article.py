@@ -8,10 +8,10 @@ import pandas as pd
 def get_article(name):
     conn = sqlite3.connect("./db/results.db")
     df = pd.read_sql_query(f"""
-    SELECT * from nodes
-    WHERE name = "{name}";
+    SELECT * FROM articles
+    WHERE article_title = "{name}";
     """, conn)
     
     # Changing order of columns for layout
-    df = df[["id", "name", "info", "cited_by", "depth", "link"]]
+    df = df[["article_id", "article_title", "article_abstract", "article_cites", "article_depth", "article_link"]]
     return df

@@ -10,7 +10,7 @@ reviews_page = html.Div([
                 html.Div([
                     html.Div([
                         review_form,
-                        html.P(id="log-search", style={'whiteSpace': 'pre-wrap',"padding-left": "1em", "width": "50%", "height": "82vh", "overflow-y": "scroll", "display": "flex", "flex-direction" : "column-reverse"}),
+                        html.P(id="log-search", style={'whiteSpace': 'pre-wrap',"padding-left": "1em", "width": "50%", "height": "82vh", "overflow-y": "scroll", "display": "flex", "flex-direction" : "column-reverse", "overflow-y": "hidden"}),
                     ], className="row"),
                     html.Div(id="search-callback"),
                     dcc.Interval(

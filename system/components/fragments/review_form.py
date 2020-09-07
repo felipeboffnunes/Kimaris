@@ -82,4 +82,23 @@ databases_input = dbc.FormGroup(
     row=True,
 )
 
-review_form = dbc.Form([search_string_input, date_input, n_input, databases_input], style={"width": "50%"})
+captchas_input = dbc.FormGroup(
+    [
+        dbc.Label("Solve captchas manually", html_for="captchas-row", width=2),
+        dbc.Col(
+            dcc.RadioItems(
+                options=[
+                    {'label': ' Yes', 'value': '1'},
+                    {'label': ' No', 'value': '0'}
+                ],
+                value='1', id="captchas-radio", labelStyle={ "padding": "0.5em"}
+            ),
+            width=10,
+        ),
+    ],
+    row=True,
+)
+
+
+
+review_form = dbc.Form([search_string_input, date_input, n_input, captchas_input, databases_input], style={"width": "50%"})

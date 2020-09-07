@@ -16,21 +16,15 @@ menu_items = dbc.Row(
             dbc.Button("Open graph", id="open-graph-button", n_clicks=0),
             id="open-graph-col", 
             width="auto"
-        ),   
+        ), 
         dbc.Col(
-            dbc.NavLink(dbc.Button("Select node", id="select-node-button", n_clicks=0),
-            href="/article",
-            id="node-link"
+            dbc.Button(
+            "Select", id="popover-target"
             ),
-            id="select-node-col", 
-            width="auto"
         ),
         dbc.Col(
-            dbc.NavLink(dbc.Button("Select article", id="select-article-button", n_clicks=0),
-            href="/article",
-            id="article-link"
-            ),
-            id="select-article-col", 
+            dbc.Button("Delete article", id="delete-article-button", n_clicks=0, color="danger"),
+            id="delete-article-col", 
             width="auto"
         ),
     ],
@@ -47,6 +41,26 @@ help_items = dbc.Row(
             id="info-open-col", 
             width="auto"
         ),
+        dbc.Popover(
+            [
+                dbc.PopoverBody(
+                    [   
+                        dbc.NavLink(dbc.Button("Select node", id="select-node-button", n_clicks=0),
+                        href="/article",
+                        id="node-link"
+                        ),
+                        dbc.NavLink(dbc.Button("Select article", id="select-article-button", n_clicks=0),
+                        href="/article",
+                        id="article-link"
+                        )
+                    ]
+                ),
+            ],
+            id="popover",
+            is_open=False,
+            target="popover-target",
+            placement="top"
+        ),
         dbc.Modal(
             [
                 dbc.ModalHeader("Instructions"),
@@ -54,12 +68,21 @@ help_items = dbc.Row(
                     dcc.Tabs([
                         dcc.Tab([
                             html.Div([
-                                html.P("Avoid clicking in a node whilst trying to move the graph, or you will open the node. Click on empty spaces or lines while rotating or moving the graph."),
-                                html.Img(src="./assets/graph3d.gif", style={"max-width": "70%", "height": "auto", "margin-left": "auto", "margin-right": "auto", "display": "block"}),  
-                                html.Br(),  
-                                html.P("Red circles inside a node mean it is the one citing the others.\n \
-                                To understand it better, if a node is central and it has a red circle, it means it is citing only the nodes that do not have a red circle.\n \
-                                If a node is a leaf and has a red circle, it is citing the central node.")
+                                html.Br(),
+                                
+                                html.Br(),
+                                html.Div([
+                                    html.Img(src="./assets/graph3d.gif", style={"max-width": "40%", "height": "auto", "margin-left": "auto", "margin-right": "auto", "display": "block"}),  
+                                    html.Div([
+                                        html.P("Rotate the graph using the right click, move the graph using the left click."),
+                                        html.Br(),
+                                        html.P("Avoid clicking in a node whilst trying to move the graph, or you will open the node. Click on empty spaces or lines while rotating or moving the graph."),
+                                        html.Br(),  
+                                        html.P("Red circles inside a node mean it is the one citing the others.\n \
+                                        To understand it better, if a node is central and it has a red circle, it means it is citing only the nodes that do not have a red circle.\n \
+                                        If a node is a leaf and has a red circle, it is citing the central node.")
+                                    ], style={"width" :"60%"}),
+                                ], className="row", style={"padding": "1em"}), 
                             ])
                         ], label="Graph"),
                         dcc.Tab([
@@ -78,7 +101,7 @@ help_items = dbc.Row(
                     dbc.Button("Close", id="info-close-button", className="ml-auto")
                 ),
             ],
-            id="info-modal",
+            id="info-modal", size="lg"
         ),
     ],
     style={"right": "0", "position": "absolute"}

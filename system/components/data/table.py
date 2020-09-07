@@ -14,19 +14,11 @@ def get_table():
         dash_table.DataTable(
             id="table",
             style_table={
+                'overflowY': 'auto',
                 'overflowX': 'auto',
                 'height': "92vh"
             },
-            css=[{
-                'selector': '.dash-spreadsheet td div',
-                'rule': '''
-                    line-height: 15px;
-                    max-height: 60px; min-height: 60px; height: 60px;
-                    display: block;
-                    overflow-y: hidden;
-                    
-                '''
-            },
+            css=[
                  {
                 'selector': '.dash-spreadsheet-container .dash-spreadsheet-inner *, .dash-spreadsheet-container .dash-spreadsheet-inner *:after, .dash-spreadsheet-container .dash-spreadsheet-inner *:before',
                 'rule': 'box-sizing: inherit; width: 100%;'
@@ -40,18 +32,35 @@ def get_table():
             tooltip_duration=None,
             style_cell={
                 'whiteSpace': 'normal',
+                "word-break": "break-word",
                 'height': 'auto',
-                'minWidth': '10px', 'width': '90px', 'maxWidth': '540px',
+                'minWidth': '10px', 'width': '90px', 'maxWidth': '200px',
             },
             data=df.to_dict("rows"),
             columns=[{"name": i, "id": i} for i in df.columns],
             
-            style_data_conditional=[
+            style_data_conditional=[  
                 {
                     'if': {'row_index': 'odd'},
                     'backgroundColor': 'rgb(248, 248, 248)'
                 }
             ],
+            
+            style_cell_conditional=[
+                {
+                    'if': {'column_id': 'Abstract'},
+                    'width': '50%'
+                },
+                {
+                    'if': {'column_id': 'Link'},
+                    'width': '20%'
+                },
+                {
+                    'if': {'column_id': 'Title'},
+                    'width': '10%'
+                }
+            ],
+            
             style_header={
                 'backgroundColor': 'rgb(230, 230, 230)',
                 'fontWeight': 'bold'

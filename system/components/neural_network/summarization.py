@@ -36,11 +36,11 @@ def summarize(model, data):
         text = data[index : i + 2]
         index = i + 2
         snnipets.append(text)
-        
+    print("predicts")
     result = model.predict(
             snnipets
     )
-    
+    print("prediiiictes")
     result = " ".join(result)
     
     matches = tool.check(result)

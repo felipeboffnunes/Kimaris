@@ -42,7 +42,23 @@ article_page = html.Div([
                                         ), label="Summarized text"
                                     ),
                                     dcc.Tab(
-                                        html.Div(id="common-words-div"), label="Common Words"
+                                        dcc.Tabs([
+                                            dcc.Tab(
+                                                html.Div(id="common-words-div"), label="Words"
+                                            ),
+                                            dcc.Tab(
+                                                html.Div(id="common-bigrams-div"), label="Bigrams"
+                                            ),
+                                            dcc.Tab(
+                                                html.Div(id="common-trigrams-div"), label="Trigrams"
+                                            ),
+                                            dcc.Tab(
+                                                html.Div(id="common-speech-tagging-div"), label="Speech Tagging"
+                                            ),
+                                        ]), label="Frequency"
+                                    ),
+                                    dcc.Tab(
+                                        html.Div(id="knowledge-graph-div", style={"height": "80vh"}), label = "Knowledge Graph"
                                     ),
                                     dcc.Tab(
                                         html.Div(id="topic-modelling-div"), label="Topic Modelling"

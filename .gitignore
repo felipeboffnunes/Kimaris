@@ -1,3 +1,9 @@
 wandb/
 
 __pycache__
+
+*.log
+*.exe
+
+Browser
+Tor

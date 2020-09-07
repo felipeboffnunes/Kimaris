@@ -11,6 +11,25 @@ html,body {
     padding-left: 1em;
 }
 
+#iframe-topic {
+    width: 150%;
+    height: 120vh;
+    margin: 0;
+    padding:0;
+    -webkit-transform:scale(0.8);
+    transform-origin: left top;
+    overflow: hidden;
+    border:0;
+}
+
+#div-topic {
+    height: 100vh;
+   
+    overflow: hidden;
+   
+    width: 100%;
+}
+
 
 /* Tab container small size and black */
 
@@ -101,7 +120,7 @@ div.last-page {
 /* Table */
 tbody {
     float: right;
-    padding-right: 3em;
+    padding-right: 0em;
 
 }
 
@@ -111,7 +130,7 @@ tbody {
 
 .cell-table > tbody {
     display:block !important;
-    padding-left: 2em;
+    padding-left: 3em;
 }
 
 .cell-table {
@@ -120,6 +139,7 @@ tbody {
 
 .row.row-1 {
     display:block !important;
+    min-width: 84vh !important;
 }
 
 .row.row-0 {
@@ -127,6 +147,14 @@ tbody {
     display:block !important
 }
 
-tbody > tr{
-    width:50%;
+.dash-spreadsheet td div {
+    line-height: 1.9vh !important;
+    max-height: 7.8vh !important; min-height: 7.8vh !important; height: 7.8vh !important;
+    display: block !important;
+    overflow-y: hidden !important;
+}
+
+
+#delete-article-button {
+    height: 6vh;
 }

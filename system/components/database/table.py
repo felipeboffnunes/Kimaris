@@ -11,7 +11,7 @@ def get_table_data():
     df = pd.read_sql_query("SELECT * from articles", conn)
     # Changing order of columns for layout
     #df = df[["id", "name", "info", "cited_by", "depth", "link"]]
-    df = df[["article_id", "article_title", "article_publish_year", "article_cites", "article_depth", "article_link"]]
-    df.columns = ["ID", "Title", "Year", "Cites", "Depth", "Link"]
+    df = df[["article_id", "article_title", "article_abstract", "article_publish_year", "article_cites", "article_depth", "article_link"]]
+    df.columns = ["ID", "Title", "Abstract", "Year", "Cites", "Depth", "Link"]
     return df
 

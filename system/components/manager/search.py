@@ -1,15 +1,18 @@
 from random import randint
 # External Libraries
-from scholarly import scholarly
 from fp.fp import FreeProxy
-from proxyscrape import create_collector, get_collector
+from proxyscrape import create_collector, get_collector, add_resource_type, get_proxyscrape_resource
+
+# Manager
+from components.manager.scholarly._scholarly import _Scholarly
 
 def make_collector(page_i=''):
         http_collector = create_collector(f'http-collector-{page_i}', 'https')
         return http_collector
 
 # Returns requests session with proxies (http, https)
-def setup_new_proxies(http_collector):    
+def setup_new_proxies(http_collector):   
+    
     proxy_http = http_collector.get_proxy()
     proxy_https = http_collector.get_proxy({'type':'https'})
     proxies={
@@ -20,26 +23,18 @@ def setup_new_proxies(http_collector):
 
 try:
     http_collector = make_collector()
+    resource_name = get_proxyscrape_resource(proxytype='http', timeout=5000, ssl='yes', anonymity='all', country='us') 
+    add_resource_type('my-resource-type',resource_name)
 except:
     pass
 
-def set_new_proxy():
+
+def set_new_proxy(scholar):
     global http_collector
     while True:
-        n = randint(0,1)
-        if n == 1:
-            proxy = FreeProxy(rand=True, timeout=5).get()
-            print("Trying proxy:", proxy)
-            if proxy == None:
-                http = setup_new_proxies(http_collector)
-                print("Trying proxy:", http["https"], http["https"])
-                proxy_works = scholarly.use_proxy(http=http["http"], https=http["https"])
-            else:
-                proxy_works = scholarly.use_proxy(http=proxy, https=proxy)
-        else:
-            http = setup_new_proxies(http_collector)
-            print("Trying proxy:", http["https"], http["https"])
-            proxy_works = scholarly.use_proxy(http=http["http"], https=http["https"])
+        http = setup_new_proxies(http_collector)
+        print("Trying proxy:", http["http"], http["https"])
+        proxy_works = scholar.use_proxy(http=http["http"], https=http["https"])
         if proxy_works:
             break
     print("Working proxy:", http["http"], http["https"])
@@ -48,14 +43,16 @@ def set_new_proxy():
 
 
 
-def do_search(search_string, type=0, n=10):
-    set_new_proxy()
+def do_search2(search_string, type=0, n=10):
+    
+    scholar = _Scholarly()
+    set_new_proxy(scholar)
     while True:
         try:
-            search_ = scholarly.search_pubs(search_string)
+            search_ = scholar.search_pubs(search_string)
             break
         except:
-            set_new_proxy()
+            set_new_proxy(scholar)
     articles = []
     for _ in range(n):
         try:
@@ -66,3 +63,59 @@ def do_search(search_string, type=0, n=10):
             pass
     
     return articles
+
+def do_search(search_string, type=0, n=10, captchas=True, steps=1):
+    articles = []
+    scholar = _Scholarly()
+    #set_new_proxy(scholar)
+    try:
+        scholar.launch_tor('.\\Browser\\TorBrowser\\Tor\\tor.exe',4516,4517)
+    except:
+        pass
+    if captchas:
+        found = False
+        while not found:
+            search_ = scholar.search_pubs(search_string)
+            article = next(search_).fill()
+            print(article)
+            articles.append(article)
+            if article:
+                found = True
+                break
+            
+            
+    else: 
+        set_new_proxy(scholar)
+        while True:
+            try:
+                search_ = scholar.search_pubs(search_string)
+                break
+            except:
+                set_new_proxy(scholar)
+    
+    for _ in range(n):
+        try:
+            article = next(search_)
+            articles.append(article)
+        except:
+            pass
+    
+    return articles
+
+def do_forward_step(article):
+    cited_articles = []
+    try:
+        cited = article.citedby
+        while True:
+            try:
+                cited_article = next(cited)
+                cited_articles.append(cited_article)
+                print(cited_article)
+                print("cited")
+            except:
+                break
+    except:
+        print("Didnt get citedby")
+        return []
+    return cited_articles            
+        
